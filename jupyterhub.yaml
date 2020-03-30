@@ -1,0 +1,39 @@
+apiVersion: opendatahub.io/v1alpha1
+kind: OpenDataHub
+metadata:
+  name: jupyterhub-opendatahub
+spec:
+  aicoe-jupyterhub:
+    odh_deploy: true
+
+    s3_endpoint_url: https://s3.upshift.redhat.com
+    jupyterhub_admins: "{{ jupyterhub_admins }}"
+
+    registry: "quay.io"
+    repository: "odh-jupyterhub"
+
+    jupyterhub_db_version: "9.5"
+
+    jupyterhub_configmap_name: jupyterhub-custom-cfg
+
+    notebook_images:
+      deploy_all_notebooks: true
+      deploy_cuda_notebooks: false
+
+    storage_class: pvc_storage_class
+    db_memory: 1Gi
+    jupyterhub_memory: 1Gi
+    notebook_image: "s2i-minimal-notebook:3.6"
+    gpu_mode: "selinux"
+
+  spark-operator:
+    odh_deploy: false
+
+  seldon:
+    odh_deploy: false
+
+  jupyter-on-openshift:
+    odh_deploy: false
+
+  monitoring:
+    odh_deploy: false
